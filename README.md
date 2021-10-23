@@ -6,6 +6,6 @@ Fetch house temperature and humidity using DHT22 sensor, for external temperatur
 <br>
 <img src="https://raw.githubusercontent.com/nelsonjma/temperature-monitor/main/schematic.png" width="1024">
 
-## Grafana:
+## Grafana Dashboard:
 <br>
 <img src="https://raw.githubusercontent.com/nelsonjma/temperature-monitor/main/grafana.png" width="1024">

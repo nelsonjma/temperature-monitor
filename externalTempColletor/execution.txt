@@ -1,0 +1,31 @@
+export TEMP_URL=http://localhost/dados-detalhados
+export STORAGE_URL=http://localhost:1681/api/temp/external
+export SLEEP=60
+
+java -XX:+UseG1GC -Xms128m -Xmx146m -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseG1GC -Xms128m -Xmx128m -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseG1GC -Xms64m -Xmx128m -XX:MaxHeapFreeRatio=30 -XX:MinHeapFreeRatio=10 -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseG1GC -Xms64m -Xmx64m -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseG1GC -Xms32m -Xmx64m -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseG1GC -Xms16m -Xmx64m -jar external-temp-collector-assembly-1.0.jar
+
+
+java -XX:+UseSerialGC -Xms32m -Xmx64m -jar external-temp-collector-assembly-1.0.jar
+java -XX:+UseSerialGC -Xms16m -Xmx64m -jar external-temp-collector-assembly-1.0.jar
+
+# aparenta ser a melhor opção
+java -XX:+UseSerialGC -Xms8m -Xmx64m -XX:-ShrinkHeapInSteps -jar external-temp-collector-assembly-1.0.jar
+
+# em testes**** continua a subir muito lentamente
+java -XX:+UseSerialGC -Xms12m -Xmx64m -XX:-ShrinkHeapInSteps -XX:MaxHeapFreeRatio=30 -XX:MinHeapFreeRatio=10 -jar external-temp-collector-assembly-1.0.jar
+
+# simple case it works
+java -XX:+UseG1GC -Xms5m -Xmx48m -jar external-temp-collector-assembly-1.0.jar
+
+# more agressive memory control
+java -XX:+UseG1GC -Xms5m -Xmx48m -XX:-ShrinkHeapInSteps -jar external-temp-collector-assembly-1.0.jar
+
+
+watch -n 5 "top -o %MEM -c -b -n 1 | grep external-temp | grep -v grep >> test.txt"
+
+tail -f test.txt
